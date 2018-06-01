@@ -21,3 +21,8 @@ Here's a sample conversation we want to build:
 **_Customer:_** _Yes._
 
 As we build the skill, we will add features to it gradually, testing each one along the way. For the first code deep dive, we will build the scaffold for our skill using the new request handling features in version two of the ASK SDK for Node.js. You can [learn about the request handling features here](https://developer.amazon.com/blogs/alexa/post/9ec7c7d2-a937-4676-b936-48dd2abd0f66/what-s-new-with-request-handling-in-the-alexa-skills-kit-sdk-for-node-js) and then read the rest of this blog post to see those features and concepts implemented as we write the code from scratch for our AWS Lambda function, which will serve as the backend for requests coming to our skill.
+
+## Let's begin
+
+1. [Part 1: Introduction to the ASK Software Development Kit for Node.js]()
+2. **Part 2: Coming Soon** - In the next walkthrough, we will add some more request handlers to our skill to handle customer requests like, “Alexa, ask memory challenge to start a nerdy memory challenge.” We will be using slots to accept customer input and cater our responses accordingly.
