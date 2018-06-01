@@ -1,8 +1,8 @@
 # Part 1: Introduction to the ASK Software Development Kit for Node.js
 
-We have one main objective for this code deep dive–when customers start the skill by saying, "Alexa, open memory challenge," we want the skill to respond with a welcome greeting like the one we included in the conversation above (“Welcome to memory challenge…”).
+This walkthrough will teach you how to build request handlers for incoming requests using canHandle() and handle() methods. You’ll also learn how to register the request handlers.
 
-This deep dive will teach you how to build request handlers for incoming requests using canHandle() and handle() methods. You’ll also learn how to register the request handlers. Let’s start building.
+We have one main objective for this walkthrough – when customers start the skill by saying, "Alexa, open memory challenge," we want the skill to respond with a welcome greeting like the one we included in the conversation above (“Welcome to memory challenge…”). Let’s start building.
 
 ## Step 1: Include the ASK SDK
 
