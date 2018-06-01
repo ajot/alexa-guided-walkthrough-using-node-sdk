@@ -1,6 +1,4 @@
-# Alexa Skill Guided Walkthrough using the Node.js SDK v2
-
-## Part 1: Introduction to the ASK Software Development Kit for Node.js
+# Part 1: Introduction to the ASK Software Development Kit for Node.js
 
 We have one main objective for this code deep dive–when customers start the skill by saying, "Alexa, open memory challenge," we want the skill to respond with a welcome greeting like the one we included in the conversation above (“Welcome to memory challenge…”).
 
