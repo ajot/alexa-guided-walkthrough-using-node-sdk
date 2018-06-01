@@ -110,10 +110,10 @@ Now we’ve created a basic scaffold for our skill. If you would like to build t
 1.  Create the skill in the Alexa Developer Console.
     *   Create a new skill at developer.amazon.com. Call it "Memory Challenge."
     *   Give it an invocation name of "memory game."
-    *   Click on JSON Editor and paste [this](https://github.com/ajot/alexa-guided-walkthrough-using-node-sdk/blob/master/part-1/interaction-model.json) interaction model.
-    *   lick Save and Build Model.
+    *   Click on JSON Editor and paste this [interaction model](https://github.com/ajot/alexa-guided-walkthrough-using-node-sdk/blob/master/part-1/interaction-model.json).
+    *   Click Save and Build Model.
 2.  Create a new AWS Lambda function by following the steps [here](https://github.com/alexa/skill-sample-nodejs-fact/blob/en-US/instructions/2-lambda-function.md), using [this final code](https://github.com/ajot/alexa-guided-walkthrough-using-node-sdk/blob/master/part-1/index.js).
-3.  In the Alexa Developer Console, test your skill in the Test tab by typing the phrase “open memory challenge.”
+3.  In the Alexa Developer Console, test your skill in the Test tab by typing the phrase “_open memory challenge_”
 
 ## Source Code for this walkthrough
 
