@@ -1,4 +1,4 @@
-# Code Deep Dive: Introduction to the ASK Software Development Kit for Node.js
+# Alexa Skill Guided Walkthrough using the Node.js SDK v2
 
 We recently released [version two of the Alexa Skills Kit (ASK) Software Development Kit (SDK) for Node.js](https://developer.amazon.com/blogs/alexa/post/decb3931-2c81-497d-85e4-8fbb5ffb1114/now-available-version-2-of-the-ask-software-development-kit-for-node-js), which introduced a fresh approach to handling requests and responses (among many other enhancements to the SDK). In our new code deep dive series, we’ll show you the ins and outs of the new SDK by providing a step-by-step code overview of the new features. We will also build a new skill from scratch, bit by bit, as we progress through the series.
 
