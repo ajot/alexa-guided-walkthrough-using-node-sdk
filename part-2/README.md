@@ -7,11 +7,8 @@ This deep dive will teach you how to capture user input using slots and cater re
 Here's a scenario that shows the capabilities we want to build into our listening retention memory game skill with this deep dive:
 
 > **Customer:** Alexa, ask Memory Challenge to start the challenge _[This will trigger StartStoryIntent]_.
-
 > **Alexa:** Welcome to Memory Challenge. I will read you a short passage, and then ask you questions based on that. Are you ready?
-
 > **Customer:** Yes _[This will trigger AMAZON.YesIntent]_.
-
 > **Alexa:** Jeff loves sports. His favorite sports in the Olympics are ice skating and skiing for the Winter Olympics, and basketball and volleyball for the Summer Olympics. What are Jeff's favorite games for the Winter Olympics?
 
 > **Customer:** Skiing _[This will trigger AnswerIntent]_.
