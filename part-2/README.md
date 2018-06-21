@@ -6,19 +6,19 @@ This deep dive will teach you how to capture user input using slots and cater re
 
 Here's a scenario that shows the capabilities we want to build into our listening retention memory game skill with this deep dive:
 
-**Customer:** Alexa, ask Memory Challenge to start the challenge [This will trigger StartStoryIntent].
+**Customer:** Alexa, ask Memory Challenge to start the challenge _[This will trigger StartStoryIntent]_.
 
 **Alexa:** Welcome to Memory Challenge. I will read you a short passage, and then ask you questions based on that. Are you ready?
 
-**Customer:** Yes [This will trigger AMAZON.YesIntent].
+**Customer:** Yes _[This will trigger AMAZON.YesIntent]_.
 
 **Alexa:** Jeff loves sports. His favorite sports in the Olympics are ice skating and skiing for the Winter Olympics, and basketball and volleyball for the Summer Olympics. What are Jeff's favorite games for the Winter Olympics?
 
-**Customer:** Skiing [This will trigger AnswerIntent].
+**Customer:** Skiing _[This will trigger AnswerIntent]_.
 
 **Alexa:** Yup! Skiing is correct. Here's your 2nd question - While traveling, Samantha likes to take her tooth brush, hair brush, face cream, and hair dryer. What does Samantha like to carry when she travels?
 
-**Customer:** Wallet [This will trigger AnswerIntent]
+**Customer:** Wallet _[This will trigger AnswerIntent]_
 
 **Alexa:** Nope! Wallet is incorrect.
 
@@ -154,7 +154,7 @@ const StoryHandler = {
 };
 ```
 
-** Keep the session open**
+**Keep the session open**
 
 Since we are expecting our customer to respond back, we add the `reprompt()` method to our responseBuilder. This will keep the session open for us, so the customer can respond back with an answer.
 
@@ -475,10 +475,10 @@ const AnswerHandler = {
 If you would like to build this skill with us throughout the series, follow the steps below to kick-start your skill:
 
 1. Create the skill in the Alexa Developer Console.
-  - Create a new skill at developer.amazon.com. Call it "Memory Challenge."
-  - Give it an invocation name of "memory game."
-  - Click on JSON Editor and paste this interaction model.
-  - Click Save and Build Model.
+    - Create a new skill at developer.amazon.com. Call it "Memory Challenge."
+    - Give it an invocation name of "memory game."
+    - Click on JSON Editor and paste this interaction model.
+    - Click Save and Build Model.
 2. Follow the steps here to create a new AWS Lambda function, and then paste this final code in the section titled Function Code.
 3. In the Alexa Developer Console, test your skill in the Test tab by typing the phrase “open memory challenge”
 
@@ -487,7 +487,7 @@ If you would like to build this skill with us throughout the series, follow the 
 1. Final code for the Lambda function [TODO: Link to GitHub]
 2. Interaction model for the skill [TODO: Link to GitHub]
 
-More Resources
+## More Resources
 -	Code Deep Dive: Introduction to the ASK Software Development Kit for Node.js [TODO: Link]
 -	What’s New with Request Handling in the Alexa Skills Kit SDK for Node.js [TODO: Link]
 -	Alexa Skills Kit SDK for Node.js [TODO: Link]
