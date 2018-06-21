@@ -5,7 +5,6 @@ const WELCOME_MESSAGE = "Welcome to memory challenge. I will read you a short pa
 const HELP_MESSAGE = "I will read you a short passage,\
                       and then ask you question based on that. Are you ready?";
 
-
 const LaunchRequestHandler = {
 	canHandle(handlerInput) {
 		const request = handlerInput.requestEnvelope.request;
@@ -25,7 +24,9 @@ const StoryHandler = {
 	canHandle(handlerInput) {
 		const request = handlerInput.requestEnvelope.request;
 		return request.type === "IntentRequest" &&
-           (request.intent.name === "StartStoryIntent" || request.intent.name === "AMAZON.StartOverIntent" || request.intent.name === "AMAZON.YesIntent");
+           (request.intent.name === "StartStoryIntent" ||
+            request.intent.name === "AMAZON.StartOverIntent" ||
+            request.intent.name === "AMAZON.YesIntent");
 	},
 	handle(handlerInput) {
 		const story = getNextStory(handlerInput);
@@ -37,7 +38,6 @@ const StoryHandler = {
 	}
 };
 
-
 const AnswerHandler = {
 	canHandle(handlerInput) {
 		const request = handlerInput.requestEnvelope.request;
@@ -47,13 +47,13 @@ const AnswerHandler = {
            attributes.counter < attributes.storiesDeck.length - 1;
 	},
 	handle(handlerInput) {
+    const attributes = handlerInput.attributesManager.getSessionAttributes();
 		const answerSlot = handlerInput.requestEnvelope.request.intent.slots.answer.value;
+    const result = checkAnswer(handlerInput, answerSlot);
 		const story = getNextStory(handlerInput);
-		const attributes = handlerInput.attributesManager.getSessionAttributes();
-		const checkAnswer = compareSlots(handlerInput, answerSlot);
-		const speechOutput = checkAnswer.message + "Here's your " + (attributes.counter + 1) + "th question - " + story.question;
+		const speechOutput = result.message + "Here's your " + (attributes.counter + 1) + "th question - " + story.question;
 
-		attributes.lastResult = checkAnswer.message;
+		attributes.lastResult = result.message;
 		handlerInput.attributesManager.setSessionAttributes(attributes);
 
 		return handlerInput.responseBuilder
@@ -75,7 +75,7 @@ const FinalScoreHandler = {
 	handle(handlerInput) {
 		const attributes = handlerInput.attributesManager.getSessionAttributes();
 		return handlerInput.responseBuilder
-			.speak(attributes.lastResult + " Thank you for playing Memory Challenge. Your final score is " + attributes.correctCount + " out of " + (attributes.counter))
+			.speak(attributes.lastResult + " Thank you for playing Memory Challenge. Your final score is " + attributes.correctCount + " out of " + (attributes.counter + 1))
 			.getResponse();
 	}
 };
@@ -100,30 +100,29 @@ function getNextStory(handlerInput){
 	attributes.lastQuestion = story;
 	handlerInput.attributesManager.setSessionAttributes(attributes);
 	return story;
-
 }
 
-function compareSlots(handlerInput,answerSlot){
+function checkAnswer(handlerInput,answerSlot){
 	const attributes = handlerInput.attributesManager.getSessionAttributes();
-	var result = "";
+	var status = "";
 	var message ="";
 
 	if (attributes.lastQuestion.answer.includes(answerSlot)){
 		console.log("correct");
 		message = "Yup! " + answerSlot + " is correct. ";
 		attributes.correctCount += 1;
-		result =true;
+		status =true;
 
 	}
 	else{
 		console.log("wrong");
 		message = "Nope! " + answerSlot + " is incorrect. ";
 		attributes.wrongCount += 1;
-		result = false;
+		status = false;
 	}
 	attributes.counter += 1;
 	handlerInput.attributesManager.setSessionAttributes(attributes);
-	return {"result":result,"message":message};
+	return {"status":status,"message":message};
 }
 
 function shuffle(arr) {
@@ -140,19 +139,19 @@ function shuffle(arr) {
 
 const stories = [
 	{
-		"question":"Jeff loves sports. His favorite sports in the Olympics are ice skating and skiing for the Winter Olympics, and basketball and volleyball for the Summer Olympics. What are John's favorite games for the Winter Olympics?","answer":["skating","ice skating","skiing"]
+		"question":"Jeff loves sports. His favorite sports in the Olympics are ice skating and skiing for the Winter Olympics, and basketball and volleyball for the Summer Olympics. What are Jeffs favorite games for the Winter Olympics?","answer":["skating","ice skating","skiing"]
 	},
 	{
-		"question":"Mike loves sports. His favorite sports in the Olympics are ice skating and skiing for the Winter Olympics, and basketball and volleyball for the Summer Olympics. What are John's favorite games for the Winter Olympics?","answer":["skating","ice skating","skiing"]
+		"question":"Mike loves sports. His favorite sports in the Olympics are ice skating and skiing for the Winter Olympics, and basketball and volleyball for the Summer Olympics. What are Mike's favorite games for the Winter Olympics?","answer":["skating","ice skating","skiing"]
 	},
 	{
 		"question":"While traveling, Samantha likes to take her tooth brush, hair brush, face cream, and hair dryer. What does Samantha like to carry when she travels?","answer":["tooth brush","hair brush","hair dryer","face cream"]
 	},
 	{
-		"question":"Mark loves sports. His favorite sports in the Olympics are ice skating and skiing for the Winter Olympics, and basketball and volleyball for the Summer Olympics. What are John's favorite games for the Winter Olympics?","answer":["skating","ice skating","skiing"]
+		"question":"Mark loves sports. His favorite sports in the Olympics are ice skating and skiing for the Winter Olympics, and basketball and volleyball for the Summer Olympics. What are Mark's favorite games for the Winter Olympics?","answer":["skating","ice skating","skiing"]
 	},
 	{
-		"question":"While traveling, Jessica likes to take her tooth brush, hair brush, face cream, and hair dryer. What does Samantha like to carry when she travels?","answer":["tooth brush","hair brush","hair dryer","face cream"]
+		"question":"While traveling, Jessica likes to take her tooth brush, hair brush, face cream, and hair dryer. What does Jessica like to carry when she travels?","answer":["tooth brush","hair brush","hair dryer","face cream"]
 	}
 ];
 
