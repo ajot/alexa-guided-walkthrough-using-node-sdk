@@ -6,26 +6,26 @@ This deep dive will teach you how to capture user input using slots and cater re
 
 Here's a scenario that shows the capabilities we want to build into our listening retention memory game skill with this deep dive:
 
-**Customer:** Alexa, ask Memory Challenge to start the challenge _[This will trigger StartStoryIntent]_.
+> **Customer:** Alexa, ask Memory Challenge to start the challenge _[This will trigger StartStoryIntent]_.
 
-**Alexa:** Welcome to Memory Challenge. I will read you a short passage, and then ask you questions based on that. Are you ready?
+> **Alexa:** Welcome to Memory Challenge. I will read you a short passage, and then ask you questions based on that. Are you ready?
 
-**Customer:** Yes _[This will trigger AMAZON.YesIntent]_.
+> **Customer:** Yes _[This will trigger AMAZON.YesIntent]_.
 
-**Alexa:** Jeff loves sports. His favorite sports in the Olympics are ice skating and skiing for the Winter Olympics, and basketball and volleyball for the Summer Olympics. What are Jeff's favorite games for the Winter Olympics?
+> **Alexa:** Jeff loves sports. His favorite sports in the Olympics are ice skating and skiing for the Winter Olympics, and basketball and volleyball for the Summer Olympics. What are Jeff's favorite games for the Winter Olympics?
 
-**Customer:** Skiing _[This will trigger AnswerIntent]_.
+> **Customer:** Skiing _[This will trigger AnswerIntent]_.
 
-**Alexa:** Yup! Skiing is correct. Here's your 2nd question - While traveling, Samantha likes to take her tooth brush, hair brush, face cream, and hair dryer. What does Samantha like to carry when she travels?
+> **Alexa:** Yup! Skiing is correct. Here's your 2nd question - While traveling, Samantha likes to take her tooth brush, hair brush, face cream, and hair dryer. What does Samantha like to carry when she travels?
 
-**Customer:** Wallet _[This will trigger AnswerIntent]_
+> **Customer:** Wallet _[This will trigger AnswerIntent]_
 
-**Alexa:** Nope! Wallet is incorrect.
+> **Alexa:** Nope! Wallet is incorrect.
 
-....
-....
+> ....
+> ....
 
-**Alexa:** Thank you for playing Memory Challenge. Your final score is 2 out of 5.
+> **Alexa:** Thank you for playing Memory Challenge. Your final score is 2 out of 5.
 
 Before we begin writing code for our skill, it’s a good idea to think through the conversation, and determine the three main acts that our skill will be handling. Much like writing a script for a play or a movie, this exercise helps figure out the request handlers we would need. For example, the three main acts of our skill will be –
 
