@@ -44,41 +44,6 @@ As we did with the `LaunchRequestHandler`, we will start off with the basic scaf
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/1._CB475938919_.png)
 
-```javascript hl_lines="18 19 20 21 22 23 24 25"
-const Alexa = require('ask-sdk-core');
-
-const LaunchRequestHandler = {
-  canHandle(handlerInput) {
-    const request = handlerInput.requestEnvelope.request;
-    return request.type === 'LaunchRequest'
-  },
-  handle(handlerInput) {
-    const speechOutput =
-          "Welcome to memory challenge. I will read you a short passage,\
-           and then ask you question based on that. Are you ready?"
-    return handlerInput.responseBuilder
-      .speak(speechOutput)
-      .getResponse();
-  }
-};
-
-const StoryHandler = {
-  canHandle(handlerInput) {
-    //conditions to determine the requests this handler can handle
-  },
-  handle(handlerInput) {
-    //execution logic for the handler
-  }
-};
-
-const skillBuilder = Alexa.SkillBuilders.custom();
-exports.handler = skillBuilder
-  .addRequestHandlers(
-    LaunchRequestHandler
-  )
-  .lambda()
-```
-
 
 ### Step 2: Set conditions for the requests this handler is capable of handling
 As we mentioned in the last deep dirve, in the new Alexa SDK, the request routing is based on a “can you handle this?” concept, which means that every handler lays out the specific condition/s that it is capable of handling.
@@ -93,20 +58,6 @@ Because all of these scenarios require the same execution logic, we can merge th
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/2._CB475938913_.png)
 
-```javascript hl_lines="2 3 4 5 6 7 8"
-const StoryHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		return request.type === "IntentRequest" &&
-           (request.intent.name === "StartStoryIntent" ||
-            request.intent.name === "AMAZON.StartOverIntent" ||
-            request.intent.name === "AMAZON.YesIntent");
-	},
-	handle(handlerInput) {
-    //execution logic for the handler
-  }
-};
-```
 
 ### Step 3: Add the logic that should execute if canHandle returns true
 
@@ -123,21 +74,6 @@ As we established in the last step, if the canHandle() function returns true for
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/3._CB475938915_.png)
 
-```javascript hl_lines="9 10 11 12"
-const StoryHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		return request.type === "IntentRequest" &&
-           (request.intent.name === "StartStoryIntent" ||
-            request.intent.name === "AMAZON.StartOverIntent" ||
-            request.intent.name === "AMAZON.YesIntent");
-	},
-	handle(handlerInput) {
-		const story = getNextStory(handlerInput);
-		const speechOutput = story.question;
-	}
-};
-```
 
 **Narrate the story to the customer by using the responseBuilder**
 
@@ -145,74 +81,17 @@ Next, we assign the question to the speechOutput variable, and generate a speech
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/4._CB475938914_.png)
 
-```javascript hl_lines="10 11 12 13"
-const StoryHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		return request.type === "IntentRequest" &&
-           (request.intent.name === "StartStoryIntent" ||
-            request.intent.name === "AMAZON.StartOverIntent" ||
-            request.intent.name === "AMAZON.YesIntent");
-	},
-	handle(handlerInput) {
-		const story = getNextStory(handlerInput);
-		const speechOutput = story.question;
-		return handlerInput.responseBuilder
-			.speak(speechOutput)
-	}
-};
-```
-
 **Keep the session open**
 
 Since we are expecting our customer to respond back, we add the `reprompt()` method to our `responseBuilder`. This will keep the session open for us, so the customer can respond back with an answer.
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/5._CB475938940_.png)
 
-```javascript hl_lines="12 13 14"
-const StoryHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		return request.type === "IntentRequest" &&
-           (request.intent.name === "StartStoryIntent" ||
-            request.intent.name === "AMAZON.StartOverIntent" ||
-            request.intent.name === "AMAZON.YesIntent");
-	},
-	handle(handlerInput) {
-		const story = getNextStory(handlerInput);
-		const speechOutput = story.question;
-		return handlerInput.responseBuilder
-			.speak(speechOutput)
-			.reprompt(speechOutput)
-	}
-};
-```
-
 **Generate the JSON response**
 
 Finally, we add the `getResponse()` method to generate the JSON response back with our `speechOutput`.
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/6._CB475938898_.png)
-
-```javascript hl_lines="12 13 14 15 "
-const StoryHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		return request.type === "IntentRequest" &&
-           (request.intent.name === "StartStoryIntent" ||
-            request.intent.name === "AMAZON.StartOverIntent" ||
-            request.intent.name === "AMAZON.YesIntent");
-	},
-	handle(handlerInput) {
-		const story = getNextStory(handlerInput);
-		const speechOutput = story.question;
-		return handlerInput.responseBuilder
-			.speak(speechOutput)
-			.reprompt(speechOutput)
-			.getResponse();
-	}
-};
-```
 
 ## Act 2: Capture the Response from the Customer, and Check If the Answer is Correct
 We have accomplished the first act of our skill, which is to narrate the story to the customer. We are now ready for the second act, which is capturing the answer from the customer, checking if the answer is correct, and responding back accordingly. Then, asking the next question.
@@ -224,34 +103,10 @@ Like we've done before, we start off by capturing the `request`.
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/7._CB475938863_.png)
 
-```javascript hl_lines="1 2 3 4 5 6 7 8"
-const AnswerHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-	},
-	handle(handlerInput) {
-    //execution logic for the handler
-	}
-};
-```
-
 ### Step 2: Set conditions for the requests this handler is capable of handling
 This will be a pretty straight forward canHandle() function. We just need to check if the intent name is `AnswerIntent`.
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/8._CB475938862_.png)
-
-```javascript hl_lines="4 5"
-const AnswerHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		return request.type === "IntentRequest" &&
-           request.intent.name === "AnswerIntent"
-	},
-	handle(handlerInput) {
-    //execution logic for the handler
-	}
-};
-```
 
 ### Step 3: Capture User Input and respond back
 
@@ -261,38 +116,11 @@ We will be using session attributes to keep track of session-level data, like co
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/9._CB475938856_.png)
 
-```javascript hl_lines="7 8 9"
-const AnswerHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		return request.type === "IntentRequest" &&
-           request.intent.name === "AnswerIntent" &&
-	},
-	handle(handlerInput) {
-      const attributes = handlerInput.attributesManager.getSessionAttributes();
-	}
-};
-```
-
 **Capture the user input through the answer slot**
 
 We navigate through the JSON request sent to our skill, and grab the user input provided through the `answer` slot defined in our interaction model.
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/10._CB475938858_.png)
-
-```javascript hl_lines="9"
-const AnswerHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		return request.type === "IntentRequest" &&
-           request.intent.name === "AnswerIntent" &&
-	},
-	handle(handlerInput) {
-      const attributes = handlerInput.attributesManager.getSessionAttributes();
-      const answerSlot = handlerInput.requestEnvelope.request.intent.slots.answer.value;
-	}
-};
-```
 
 **Check answer**
 
@@ -300,95 +128,26 @@ We use our helper function `checkAnswer()` to check if the answer provided by th
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/11._CB475938819_.png)
 
-```javascript hl_lines="10"
-const AnswerHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		return request.type === "IntentRequest" &&
-           request.intent.name === "AnswerIntent" &&
-	},
-	handle(handlerInput) {
-      const attributes = handlerInput.attributesManager.getSessionAttributes();
-      const answerSlot = handlerInput.requestEnvelope.request.intent.slots.answer.value;
-      const result = checkAnswer(handlerInput, answerSlot);
-	}
-};
-```
-
 **Get the next story**
 
 We then get the next story using our helper function `getNextStory()`.
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/12._CB475938845_.png)
 
-```javascript hl_lines="11"
-const AnswerHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		return request.type === "IntentRequest" &&
-           request.intent.name === "AnswerIntent" &&
-	},
-	handle(handlerInput) {
-      const attributes = handlerInput.attributesManager.getSessionAttributes();
-      const answerSlot = handlerInput.requestEnvelope.request.intent.slots.answer.value;
-      const result = checkAnswer(handlerInput, answerSlot);
-      const story = getNextStory(handlerInput);
-	}
-};
-```
-
 Let's take a quick diversion to take a look at the `getNextStory` function. As you can see in the code below, we set up some attributes that will come in handy for us to keep track of number of questions asked (`attributes.counter`), number of correct (`attributes.correctCount`), number of incorrect answers (`attributes.wrongCount`). We increment these counters accordingly in the `checkAnswer()` function.
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/13._CB475938847_.png)
-
-```javascript hl_lines="1 2 5 6 7 8 9 10 11 17 18"
-function getNextStory(handlerInput){
-	const attributes = handlerInput.attributesManager.getSessionAttributes();
-	var storiesDeck = [];
-
-	if (!attributes.counter){ //skill launched for first time - no counter set
-		storiesDeck = shuffle(stories);
-		attributes.storiesDeck = storiesDeck;
-		attributes.counter = 0;
-		attributes.correctCount = 0;
-		attributes.wrongCount = 0;
-	}
-	else{
-		storiesDeck = attributes.storiesDeck;
-	}
-
-	const story = storiesDeck[attributes.counter];
-	attributes.lastQuestion = story;
-	handlerInput.attributesManager.setSessionAttributes(attributes);
-	return story;
-}
-```
 
 **Generate speechOutput using session attributes**
 
 Back in the AnswerHandler, we set up the speechOutput to read the result of the answer (correct/incorrect) as returned by the `checkAnswer()` function. We also pull the counter from the session attributes and include that in our response.
 
-```const speechOutput = result.message + "Here's your " + (attributes.counter + 1) + "th question - " + story.question;```
+```
+const speechOutput = result.message + "Here's your " + (attributes.counter + 1) + "th question - " + story.question;
+```
 
 Respond back with the status of the answer, and then the question.
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/14._CB475938846_.png)
-
-```javascript hl_lines="12"
-const AnswerHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		return request.type === "IntentRequest" &&
-           request.intent.name === "AnswerIntent" &&
-	},
-	handle(handlerInput) {
-      const attributes = handlerInput.attributesManager.getSessionAttributes();
-      const answerSlot = handlerInput.requestEnvelope.request.intent.slots.answer.value;
-      const result = checkAnswer(handlerInput, answerSlot);
-      const story = getNextStory(handlerInput);
-      const speechOutput = result.message + "Here's your " + (attributes.counter + 1) + "th question - " + story.question;
-	}
-};
-```
 
 **Store the result of the last question in session attributes**
 
@@ -396,80 +155,17 @@ We store the result of the last question as a session attribute, and call attrib
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/15._CB475938840_.png)
 
-```javascript hl_lines="14 15"
-const AnswerHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		return request.type === "IntentRequest" &&
-           request.intent.name === "AnswerIntent" &&
-	},
-	handle(handlerInput) {
-      const attributes = handlerInput.attributesManager.getSessionAttributes();
-      const answerSlot = handlerInput.requestEnvelope.request.intent.slots.answer.value;
-      const result = checkAnswer(handlerInput, answerSlot);
-      const story = getNextStory(handlerInput);
-      const speechOutput = result.message + "Here's your " + (attributes.counter + 1) + "th question - " + story.question;
-
-      attributes.lastResult = result.message;
-      handlerInput.attributesManager.setSessionAttributes(attributes);
-	}
-};
-```
-
 **Generate the JSON response**
 
 Since we are expecting the customer to respond back, we add the `reprompt()` method to our `responseBuilder`. This will keep the session open for us, so the customer can respond back with an answer. Finally, we add the `getResponse()` method to generate the JSON response back with our `speechOutput`.
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/16._CB475939071_.png)
 
-```javascript hl_lines="17 18 19 20"
-const AnswerHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		return request.type === "IntentRequest" &&
-           request.intent.name === "AnswerIntent" &&
-	},
-	handle(handlerInput) {
-      const attributes = handlerInput.attributesManager.getSessionAttributes();
-      const answerSlot = handlerInput.requestEnvelope.request.intent.slots.answer.value;
-      const result = checkAnswer(handlerInput, answerSlot);
-      const story = getNextStory(handlerInput);
-      const speechOutput = result.message + "Here's your " + (attributes.counter + 1) + "th question - " + story.question;
-
-      attributes.lastResult = result.message;
-      handlerInput.attributesManager.setSessionAttributes(attributes);
-
-      return handlerInput.responseBuilder
-        .speak(speechOutput)
-        .reprompt(speechOutput)
-        .getResponse();
-	}
-};
-```
-
 ## Act 3: Get the Final Score
 We will be using the session attribute counter (`attributes.counter`) to determine if the last question has been asked, which would mean that our skill should now respond with the final score. To deal with that, we will add one more handler - FinalScoreHandler, and add a condition to check if the number of questions asked (`attributes.counter`) equals the total number of questions available. If yes, we respond back with the final score.
 
 **Set up the FinalScoreHandler**
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/17._CB475939065_.png)
-
-```javascript hl_lines="1 7"
-const FinalScoreHandler = {
-	canHandle(handlerInput) {
-		const request = handlerInput.requestEnvelope.request;
-		const attributes = handlerInput.attributesManager.getSessionAttributes();
-		return request.type === "IntentRequest" &&
-           request.intent.name === "AnswerIntent" &&
-           attributes.counter == attributes.storiesDeck.length - 1;
-	},
-	handle(handlerInput) {
-		const attributes = handlerInput.attributesManager.getSessionAttributes();
-		return handlerInput.responseBuilder
-			.speak(attributes.lastResult + " Thank you for playing Memory Challenge. Your final score is " + attributes.correctCount + " out of " + (attributes.counter + 1))
-			.getResponse();
-	}
-};
-```
 
 **Add counter condition to AnswerHandler**
 
@@ -478,33 +174,6 @@ If the counter is not equal to the number of questions yet, Alexa should hit the
 We will be using session attributes to keep track of session-level data, like counter, number of correct answers, last question asked, etc. We will use attributes manager provided by the SDK to get and set the session attributes.
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/18._CB475939067_.png)
-
-```javascript hl_lines="1 4 5 6 7"
-const AnswerHandler = {
-	canHandle(handlerInput) {
-      const request = handlerInput.requestEnvelope.request;
-      const attributes = handlerInput.attributesManager.getSessionAttributes();
-      return request.type === "IntentRequest" &&
-        request.intent.name === "AnswerIntent" &&
-        attributes.counter < attributes.storiesDeck.length - 1;
-	},
-	handle(handlerInput) {
-      const attributes = handlerInput.attributesManager.getSessionAttributes();
-      const answerSlot = handlerInput.requestEnvelope.request.intent.slots.answer.value;
-      const result = checkAnswer(handlerInput, answerSlot);
-      const story = getNextStory(handlerInput);
-      const speechOutput = result.message + "Here's your " + (attributes.counter + 1) + "th question - " + story.question;
-
-      attributes.lastResult = result.message;
-      handlerInput.attributesManager.setSessionAttributes(attributes);
-
-      return handlerInput.responseBuilder
-      	.speak(speechOutput)
-      	.reprompt(speechOutput)
-      	.getResponse();
-	}
-};
-```
 
 ## Start Building
 
