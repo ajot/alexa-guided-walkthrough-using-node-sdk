@@ -124,7 +124,7 @@ We navigate through the JSON request sent to our skill, and grab the user input 
 
 **Check answer**
 
-We use our helper function `checkAnswer()` to check if the answer provided by the customer (answerSlot) matches the correct answer.
+We use our helper function [checkAnswer()](https://github.com/alexa/alexa-guided-walkthrough-using-node-sdk/blob/master/part-2/index.js#L105) to check if the answer provided by the customer (answerSlot) matches the correct answer.
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/11._CB475938819_.png)
 
