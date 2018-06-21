@@ -474,20 +474,21 @@ const AnswerHandler = {
 
 If you would like to build this skill with us throughout the series, follow the steps below to kick-start your skill:
 
-1. Create the skill in the Alexa Developer Console.
+1.  Create the skill in the [Alexa Developer Console](https://developer.amazon.com/alexa/console/ask).
     - Create a new skill at developer.amazon.com. Call it "Memory Challenge."
     - Give it an invocation name of "memory game."
-    - Click on JSON Editor and paste this interaction model.
+    - Click on JSON Editor and paste this [interaction model](https://github.com/alexa/alexa-guided-walkthrough-using-node-sdk/blob/master/part-2/interaction-model.json).
     - Click Save and Build Model.
-2. Follow the steps here to create a new AWS Lambda function, and then paste this final code in the section titled Function Code.
-3. In the Alexa Developer Console, test your skill in the Test tab by typing the phrase “open memory challenge”
+2.  [Follow the steps here](https://github.com/alexa/skill-sample-nodejs-fact/blob/en-US/instructions/2-lambda-function.md) to create a new AWS Lambda function, and then paste [this final code](https://github.com/alexa/alexa-guided-walkthrough-using-node-sdk/blob/master/part-2/index.js) in the section titled **Function Code**.
+3.  In the [Alexa Developer Console](https://developer.amazon.com/alexa/console/ask), test your skill in the Test tab by typing the phrase “_open memory challenge_”
+
 
 ## Source Code for This Deep Dive
 
-1. Final code for the Lambda function [TODO: Link to GitHub]
-2. Interaction model for the skill [TODO: Link to GitHub]
+1. [Final code for the Lambda function](https://github.com/alexa/alexa-guided-walkthrough-using-node-sdk/blob/master/part-2/index.js)
+2. [Interaction model for the skill](https://github.com/alexa/alexa-guided-walkthrough-using-node-sdk/blob/master/part-2/interaction-model.json)
 
 ## More Resources
 -	Code Deep Dive: Introduction to the ASK Software Development Kit for Node.js [TODO: Link]
--	What’s New with Request Handling in the Alexa Skills Kit SDK for Node.js [TODO: Link]
--	Alexa Skills Kit SDK for Node.js [TODO: Link]
+- [What’s New with Request Handling in the Alexa Skills Kit SDK for Node.js](https://developer.amazon.com/blogs/alexa/post/9ec7c7d2-a937-4676-b936-48dd2abd0f66/what-s-new-with-request-handling-in-the-alexa-skills-kit-sdk-for-node-js)
+- [Alexa Skills Kit SDK for Node.js](https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs)
