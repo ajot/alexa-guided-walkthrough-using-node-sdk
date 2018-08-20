@@ -47,27 +47,27 @@ To generate our display response, we use Alexa SDK’s built-in ImageHelper() an
 ## Step 3: Set Up the Handlers to Use These Display Helper Functions
 In our LaunchRequestHandler, we first use the supportsDisplay() function to check if the device supports a display, and then create our response accordingly. If the requesting device does support a display, we use our getDisplay() function to generate our response, which includes a display screen. 
 
-**Inside LaunchRequestHandler**
+### Inside LaunchRequestHandler
 
 **Using BodyTemplate7**
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/3(1)._CB469841417_.png)
 
-**Inside StoryHandler**
+### Inside StoryHandler
 Same treatment as LaunchRequestHandler – we check if the device supports display, and then respond accordingly. 
 
 **Using BodyTemplate2**
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/4(1)._CB469841418_.png)
 
-**Inside AnswerHandler**
+### Inside AnswerHandler
 Same treatment as LaunchRequestHandler and StoryHandler – we check if the device supports display, and then respond accordingly. 
 
 **Using BodyTemplate2**
 
 ![](https://m.media-amazon.com/images/G/01/DeveloperBlogs/AlexaBlogs/default/5(1)._CB469841409_.png)
 
-**Inside FinalScoreHandler**
+### Inside FinalScoreHandler
 Same treatment as LaunchRequestHandler, StoryHandler, and AnswerHandler – we check if the device supports display, and then respond accordingly. 
 
 **Using BodyTemplate7**
